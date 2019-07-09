@@ -302,7 +302,24 @@ function main(){
 
 
 
+			var starsGeometry = new THREE.Geometry();
 
+			for ( var i = 0; i < 10000; i ++ ) {
+
+			var star = new THREE.Vector3();
+			star.x = THREE.Math.randFloatSpread( 2000 );
+			star.y = THREE.Math.randFloatSpread( 2000 );
+			star.z = THREE.Math.randFloatSpread( 2000 );
+
+			starsGeometry.vertices.push( star );
+
+			}
+
+			var starsMaterial = new THREE.PointsMaterial( { color: 0x888888 } );
+
+			var starField = new THREE.Points( starsGeometry, starsMaterial );
+
+			scene.add( starField );
 
 
 
@@ -353,12 +370,11 @@ function main(){
             for(i = 0;i<planets.length;i++){
             //camera.position.set(intersectX,intersectY,intersectZ); //kind of works? 
             if(intersectX < (planets[i].position.x + planetDataArray[i].getplanetRadius) && intersectX > (planets[i].position.x - planetDataArray[i].getplanetRadius)){
-                camera.position.set(intersectX+planetDataArray[i].getplanetRadius+1,intersectY+1,intersectZ+1);
                 controls.target.set(planets[i].position.x,planets[i].position.y,planets[i].position.z);
                 controls.update();
             } //basic raycasting complete
             else if(intersectX > (planets[i].position.x + planetDataArray[i].getplanetRadius) && intersectX < (planets[i].position.x - planetDataArray[i].getplanetRadius)){
-                camera.position.set(0,0,0);
+               // camera.position.set(0,0,0);
                 controls.target.set(0,0,0);
                 controls.update();
 
